@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espacios Orbs Holding Cards Demo</title>
+<style>
+:root {
+  --bg: #f7f7f8;
+  --glass: rgba(255,255,255,0.72);
+  --border: rgba(255,255,255,0.55);
+  --accent: #B6FF3B;
+  --text: #0f172a;
+  --subtle: #64748b;
+  --orb1: #d8d6ea;
+  --orb2: #d0e7ff;
+  --orb3: #e2dff8;
+  --shadow: 0 20px 80px rgba(15,23,42,0.08);
+  --radius: 16px;
+  --motion: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion: 0; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+* { box-sizing: border-box; }
+body {
+  margin:0;
+  font-family: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.hero {
+  position: relative;
+  padding: 120px 6vw 140px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+  gap: 48px;
+  align-items: center;
+}
+.glass-card {
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,0.5);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+}
+.logo-wrap {
+  position: relative;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+}
+.logo-core {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.5);
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.7);
+  box-shadow: var(--shadow);
+  z-index: 3;
+}
+.logo-core img { width: 160px; height: auto; }
+.micro-grid {
+  position: absolute;
+  inset: 14%;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+  z-index: 2;
+}
+.micro-card {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(15,23,42,0.08);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  color: var(--subtle);
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.micro-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(15,23,42,0.12);
+  border-color: rgba(182,255,59,0.6);
+}
+.micro-card.active { color: var(--text); border-color: var(--accent); box-shadow: 0 16px 50px rgba(182,255,59,0.28); }
+
+.hero-copy h1 { font-size: clamp(32px,4vw,46px); margin:0 0 12px; letter-spacing: -0.02em; }
+.hero-copy p { color: var(--subtle); max-width: 620px; line-height: 1.6; }
+.hero-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.8);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.btn-primary { background: var(--accent); color: #0b1100; box-shadow: 0 10px 30px rgba(182,255,59,0.35); }
+.section { padding: 80px 6vw; position: relative; }
+.section h2 { margin:0 0 16px; font-size: 28px; letter-spacing: -0.01em; }
+.section p { color: var(--subtle); max-width: 700px; }
+
+.demo-area { position: relative; min-height: 540px; margin-top: 30px; }
+.orb { position: absolute; border-radius: 50%; filter: drop-shadow(0 18px 40px rgba(15,23,42,0.14)); opacity: 0.92; }
+.orb::after { content:""; position:absolute; inset:6%; border-radius:50%; background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.1)); mix-blend-mode: screen; }
+.orb[data-tone="1"] { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), var(--orb1)); }
+.orb[data-tone="2"] { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), var(--orb2)); }
+.orb[data-tone="3"] { background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), var(--orb3)); }
+
+.demo-card {
+  position: absolute;
+  width: 360px;
+  min-height: 220px;
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(15,23,42,0.14);
+  backdrop-filter: blur(14px);
+  padding: 18px;
+  overflow: hidden;
+  transform-origin: center;
+  transition: opacity 0.5s ease, box-shadow 0.5s ease, filter 0.5s ease;
+}
+.demo-card.dimmed { opacity: 0.55; filter: grayscale(0.15); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.card-title { font-weight: 700; letter-spacing: -0.01em; }
+.pill { font-size: 11px; padding: 6px 10px; border-radius: 999px; background: rgba(15,23,42,0.06); color: var(--subtle); }
+.pulse { animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%{opacity:0.55;}50%{opacity:1;}100%{opacity:0.55;} }
+.publish { background: var(--accent); color: #0b1100; padding: 8px 14px; border-radius: 10px; font-weight: 700; box-shadow: 0 10px 30px rgba(182,255,59,0.35); border:none; }
+
+.ads-table { border: 1px solid rgba(15,23,42,0.05); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+.ads-row { display: grid; grid-template-columns: 2fr 1fr 1fr; padding: 10px 12px; background: rgba(255,255,255,0.75); border-bottom: 1px solid rgba(15,23,42,0.05); align-items: center; }
+.ads-row:last-child { border-bottom: none; }
+.badge { padding: 4px 8px; border-radius: 8px; background: rgba(15,23,42,0.05); font-size: 12px; color: var(--subtle); }
+.mobile-ad { margin-top: 8px; padding: 12px; border-radius: 14px; border: 1px solid rgba(15,23,42,0.06); background: rgba(255,255,255,0.72); display: grid; grid-template-columns: 64px 1fr; gap: 10px; align-items: center; }
+.whatsapp-btn { margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 12px; background: #25D366; color: #0b1100; font-weight: 700; box-shadow: 0 10px 30px rgba(37,211,102,0.35); border:none; }
+
+.chat-bubble { padding: 10px 12px; border-radius: 12px; margin-bottom: 8px; max-width: 260px; }
+.chat-user { background: rgba(15,23,42,0.08); color: var(--text); align-self: flex-start; }
+.chat-ai { background: rgba(182,255,59,0.15); border: 1px solid rgba(182,255,59,0.35); color: #0b1100; align-self: flex-end; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
+.tag { padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(15,23,42,0.08); background: rgba(255,255,255,0.8); font-size: 12px; color: var(--subtle); opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; }
+.tag.show { opacity: 1; transform: translateY(0); }
+.status { font-weight: 700; font-size: 13px; color: #0b1100; background: rgba(182,255,59,0.3); border-radius: 10px; padding: 6px 10px; display: inline-flex; gap: 6px; align-items: center; }
+
+.crm-field { display: grid; grid-template-columns: 120px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px dashed rgba(15,23,42,0.06); align-items: center; opacity: 0; transform: translateY(10px); transition: opacity .4s ease, transform .4s ease; }
+.crm-field.show { opacity: 1; transform: translateY(0); }
+.timeline { font-size: 12px; color: var(--subtle); margin-top: 10px; display: grid; gap: 6px; }
+.timeline-item { opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; }
+.timeline-item.show { opacity: 1; transform: translateY(0); }
+
+.tethers { position: absolute; inset:0; pointer-events: none; width:100%; height:100%; }
+.tethers line { stroke: rgba(15,23,42,0.12); stroke-width: 1; }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 20px; margin-top: 28px; }
+.price-card { padding: 20px; border-radius: 16px; border: 1px solid rgba(15,23,42,0.06); background: rgba(255,255,255,0.75); box-shadow: 0 18px 60px rgba(15,23,42,0.08); display: grid; gap: 8px; }
+.price { font-size: 22px; font-weight: 700; }
+.addons { margin-top: 24px; display: grid; gap: 8px; }
+.addons div { padding: 10px 12px; border-radius: 12px; border: 1px dashed rgba(15,23,42,0.08); background: rgba(255,255,255,0.7); }
+
+.loader { position: fixed; inset:0; background: var(--bg); display: grid; place-items: center; z-index: 50; transition: opacity .6s ease, visibility .6s ease; }
+.loader.hidden { opacity: 0; visibility: hidden; }
+.water { position: absolute; inset:0; overflow:hidden; }
+.water::before { content:""; position:absolute; left:0; bottom:-100%; width:100%; height:200%; background: linear-gradient(0deg, rgba(182,255,59,0.8), rgba(182,255,59,0.2)); animation: fill 2.6s ease forwards; transform-origin: bottom; }
+@keyframes fill { from { transform: translateY(40%);} to { transform: translateY(-60%);} }
+
+.docked-logo { position: fixed; right: 18px; bottom: 18px; width: 64px; height: 64px; border-radius: 18px; background: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.7); box-shadow: var(--shadow); display: grid; place-items: center; z-index: 30; cursor: pointer; transition: transform .25s ease, opacity .4s ease; }
+.docked-logo.hidden { opacity: 0; pointer-events: none; }
+.chat-panel { position: fixed; right: 18px; bottom: 94px; width: min(360px, calc(100vw - 36px)); background: rgba(255,255,255,0.92); border-radius: 18px; border: 1px solid rgba(255,255,255,0.7); box-shadow: 0 24px 80px rgba(15,23,42,0.18); padding: 16px; display: none; z-index: 31; }
+.chat-panel.active { display: block; }
+.chat-panel h4 { margin:0 0 8px; }
+.chat-panel textarea { width: 100%; min-height: 80px; border-radius: 12px; border: 1px solid rgba(15,23,42,0.08); padding: 10px; background: rgba(255,255,255,0.8); resize: vertical; }
+.chat-panel .mini-btn { margin-top: 10px; width: 100%; padding: 10px; background: var(--accent); border: none; border-radius: 12px; font-weight: 700; color: #0b1100; }
+
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.tap { animation: tap .8s ease; }
+@keyframes tap { 0%{transform:translateY(0);}30%{transform:translateY(3px) scale(0.98);}100%{transform:translateY(0);} }
+
+@keyframes driftA { 0%{transform:translate(0,0);}50%{transform:translate(16px, -10px);}100%{transform:translate(0,0);} }
+@keyframes driftB { 0%{transform:translate(0,0);}50%{transform:translate(-14px, 12px);}100%{transform:translate(0,0);} }
+</style>
+</head>
+<body>
+<div class="loader" id="loader">
+  <div class="logo-wrap" style="width:180px;height:180px;">
+    <div class="water"></div>
+    <div class="logo-core" style="background: transparent; border:none; box-shadow:none;">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="Espacios logo">
+    </div>
+  </div>
+</div>
+
+<div class="docked-logo hidden" id="dockedLogo" aria-label="Open chat">
+  <img src="https://i.imghippo.com/files/il6818wpk.png" alt="Espacios" style="width:38px;">
+</div>
+<div class="chat-panel" id="chatPanel">
+  <h4>Espacios Assistant</h4>
+  <div style="display:grid; gap:8px; font-size:14px; color:var(--subtle);">
+    <div>Ask about integrations, pricing, or automations.</div>
+    <textarea placeholder="Type your question..."></textarea>
+    <button class="mini-btn">Send</button>
+  </div>
+</div>
+
+<section class="hero" id="hero">
+  <div class="logo-wrap">
+    <div class="logo-core">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="Espacios logo">
+    </div>
+    <div class="micro-grid">
+      <div class="micro-card" data-target="ads">Ads</div>
+      <div class="micro-card" data-target="chat">WhatsApp</div>
+      <div class="micro-card" data-target="crm">CRM</div>
+    </div>
+  </div>
+  <div class="hero-copy">
+    <h1>Espacios orchestration — grounded in motion.</h1>
+    <p>Lead generation activates a WhatsApp conversation, qualification enriches the record, and CRM updates on its own. Watch each stage held by physical orbs that keep the flow aligned.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://dashboard.espacios.me/signup" target="_blank" rel="noopener">Start Free</a>
+      <a class="btn" href="https://dashboard.espacios.me/" target="_blank" rel="noopener">Login</a>
+      <a class="btn" href="mailto:hello@espacios.me">Contact</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="demo">
+  <div class="reveal">
+    <h2>Orbs holding cards — the Espacios loop.</h2>
+    <p>Each card rests on two orbs, moving with them while subtle tethers keep the system coherent. Click a micro-card to focus a stage or let the loop auto-play.</p>
+  </div>
+  <div class="demo-area" id="demoArea">
+    <svg class="tethers" viewBox="0 0 1200 800" preserveAspectRatio="none">
+      <line id="line-ads-1" /><line id="line-ads-2" />
+      <line id="line-chat-1" /><line id="line-chat-2" />
+      <line id="line-crm-1" /><line id="line-crm-2" />
+    </svg>
+    <div class="orb" id="orb-ads-a" data-tone="1" style="width:120px;height:120px; top:20%; left:18%; animation: driftA 12s ease-in-out infinite;"></div>
+    <div class="orb" id="orb-ads-b" data-tone="2" style="width:90px;height:90px; top:36%; left:38%; animation: driftB 10s ease-in-out infinite;"></div>
+
+    <div class="orb" id="orb-chat-a" data-tone="2" style="width:110px;height:110px; top:46%; left:54%; animation: driftA 13s ease-in-out infinite;"></div>
+    <div class="orb" id="orb-chat-b" data-tone="3" style="width:80px;height:80px; top:60%; left:70%; animation: driftB 9s ease-in-out infinite;"></div>
+
+    <div class="orb" id="orb-crm-a" data-tone="1" style="width:140px;height:140px; top:24%; left:62%; animation: driftB 11s ease-in-out infinite;"></div>
+    <div class="orb" id="orb-crm-b" data-tone="3" style="width:90px;height:90px; top:12%; left:78%; animation: driftA 12s ease-in-out infinite;"></div>
+
+    <div class="demo-card" id="card-ads">
+      <div class="card-header">
+        <div class="card-title">Lead Generation — Facebook Ads</div>
+        <div class="pill">Preview</div>
+      </div>
+      <div class="ads-table">
+        <div class="ads-row pulse" id="ads-campaign">
+          <div>Awareness — Always-on</div>
+          <div class="badge">Budget AED 300</div>
+          <div style="text-align:right;">Active</div>
+        </div>
+        <div class="ads-row">
+          <div>Remarketing</div><div class="badge">Budget AED 120</div><div style="text-align:right;">Scheduled</div>
+        </div>
+      </div>
+      <button class="publish" id="publishBtn">Publish</button>
+      <div class="mobile-ad" id="mobileAd" style="opacity:0; transform: translateY(10px);">
+        <div style="width:64px;height:64px;border-radius:16px;background:rgba(15,23,42,0.08);"></div>
+        <div>
+          <div style="font-weight:700;margin-bottom:6px;">Homes that flex with you</div>
+          <div style="font-size:13px;color:var(--subtle);">Tap to chat instantly.</div>
+          <button class="whatsapp-btn" id="whatsTap">WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-card dimmed" id="card-chat">
+      <div class="card-header">
+        <div class="card-title">WhatsApp Conversation</div>
+        <div class="pill">AI Assist</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <div class="chat-bubble chat-user" id="chat1">Hi, saw your ad. Budget around 200k.</div>
+        <div class="chat-bubble chat-ai" id="chat2" style="opacity:0; transform: translateY(8px);">Thanks for reaching out. Preferred timeline?</div>
+        <div class="chat-bubble chat-user" id="chat3" style="opacity:0; transform: translateY(8px);">Within 2 months.</div>
+      </div>
+      <div class="tag-row">
+        <span class="tag" id="tag-budget">Budget: 200k</span>
+        <span class="tag" id="tag-time">Timeline: 2 mo</span>
+        <span class="tag" id="tag-intent">Intent: High</span>
+      </div>
+      <div class="status" id="chatStatus" style="opacity:0; transform: translateY(6px);">Qualified</div>
+    </div>
+
+    <div class="demo-card dimmed" id="card-crm">
+      <div class="card-header">
+        <div class="card-title">CRM Update</div>
+        <div class="pill" id="crmStatus">New</div>
+      </div>
+      <div id="crmFields">
+        <div class="crm-field" id="field-name"><div>Name</div><div>Leila Haddad</div></div>
+        <div class="crm-field" id="field-budget"><div>Budget</div><div>AED 200k</div></div>
+        <div class="crm-field" id="field-time"><div>Timeline</div><div>2 months</div></div>
+        <div class="crm-field" id="field-intent"><div>Intent score</div><div>92</div></div>
+        <div class="crm-field" id="field-owner"><div>Owner</div><div>Maria (AE)</div></div>
+      </div>
+      <div class="timeline" id="crmTimeline">
+        <div class="timeline-item" id="log1">Lead created from WhatsApp</div>
+        <div class="timeline-item" id="log2">Fields enriched</div>
+        <div class="timeline-item" id="log3">Owner assigned</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="pricing">
+  <h2>Pricing</h2>
+  <p>Base platform fee: AED 110 / month (required) · Setup fee: AED 750 (one-time)</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div style="font-weight:700;">Forever Free</div>
+      <div class="price">AED 0</div>
+      <div style="color:var(--subtle);">Lite workspace, limited volume.</div>
+    </div>
+    <div class="price-card">
+      <div style="font-weight:700;">Pro</div>
+      <div class="price">Custom</div>
+      <div style="color:var(--subtle);">Full orchestration with AI handoff.</div>
+    </div>
+    <div class="price-card">
+      <div style="font-weight:700;">Enterprise</div>
+      <div class="price">Custom</div>
+      <div style="color:var(--subtle);">Advanced controls, governance, SSO.</div>
+    </div>
+  </div>
+  <div class="addons">
+    <div>AI Copilot: AED 47 / seat / month</div>
+    <div>AI Insights: AED 504 / month</div>
+    <div>Extra Channel: AED 47 / channel / month</div>
+    <div>AI (resolved conversation): AED 1.50 / resolved conversation</div>
+    <div>Custom workflows / automations: quoted</div>
+    <div>Extra bots / numbers / advanced automations: quoted</div>
+  </div>
+</section>
+
+<section class="section reveal" id="links">
+  <h2>Links</h2>
+  <div style="display:flex; flex-wrap:wrap; gap:12px;">
+    <a class="btn btn-primary" href="https://dashboard.espacios.me/signup" target="_blank" rel="noopener">Start Free</a>
+    <a class="btn" href="https://dashboard.espacios.me/" target="_blank" rel="noopener">Login</a>
+    <a class="btn" href="mailto:hello@espacios.me">Contact</a>
+  </div>
+</section>
+
+<script>
+const supportsMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches === false;
+const cards = {
+  ads: { card: document.getElementById('card-ads'), orbs: ['orb-ads-a','orb-ads-b'], lines: ['line-ads-1','line-ads-2'] },
+  chat: { card: document.getElementById('card-chat'), orbs: ['orb-chat-a','orb-chat-b'], lines: ['line-chat-1','line-chat-2'] },
+  crm: { card: document.getElementById('card-crm'), orbs: ['orb-crm-a','orb-crm-b'], lines: ['line-crm-1','line-crm-2'] },
+};
+const microCards = [...document.querySelectorAll('.micro-card')];
+let activeStage = 'ads';
+const demoArea = document.getElementById('demoArea');
+const tethers = document.querySelector('.tethers');
+
+function lerp(a,b,t){ return a + (b-a)*t; }
+const targets = { ads:{x:0,y:0}, chat:{x:0,y:0}, crm:{x:0,y:0} };
+const positions = { ads:{x:0,y:0}, chat:{x:0,y:0}, crm:{x:0,y:0} };
+
+function updateCardPosition(key){
+  const data = cards[key];
+  const rect = demoArea.getBoundingClientRect();
+  const orbRects = data.orbs.map(id => document.getElementById(id).getBoundingClientRect());
+  const cx = (orbRects[0].left + orbRects[0].width/2 + orbRects[1].left + orbRects[1].width/2)/2 - rect.left;
+  const cy = (orbRects[0].top + orbRects[0].height/2 + orbRects[1].top + orbRects[1].height/2)/2 - rect.top;
+  targets[key].x = cx - data.card.offsetWidth/2;
+  targets[key].y = cy - data.card.offsetHeight/2;
+  positions[key].x = lerp(positions[key].x, targets[key].x, 0.06 * (supportsMotion?1:0));
+  positions[key].y = lerp(positions[key].y, targets[key].y, 0.06 * (supportsMotion?1:0));
+  if(!supportsMotion){ positions[key].x = targets[key].x; positions[key].y = targets[key].y; }
+  data.card.style.transform = `translate(${positions[key].x}px, ${positions[key].y}px)`;
+  const [line1,line2] = data.lines.map(id => document.getElementById(id));
+  line1.setAttribute('x1', orbRects[0].left - rect.left + orbRects[0].width/2);
+  line1.setAttribute('y1', orbRects[0].top - rect.top + orbRects[0].height/2);
+  line1.setAttribute('x2', positions[key].x + data.card.offsetWidth/2);
+  line1.setAttribute('y2', positions[key].y + data.card.offsetHeight/2);
+  line2.setAttribute('x1', orbRects[1].left - rect.left + orbRects[1].width/2);
+  line2.setAttribute('y1', orbRects[1].top - rect.top + orbRects[1].height/2);
+  line2.setAttribute('x2', positions[key].x + data.card.offsetWidth/2);
+  line2.setAttribute('y2', positions[key].y + data.card.offsetHeight/2);
+}
+
+function loop(){
+  updateCardPosition('ads');
+  updateCardPosition('chat');
+  updateCardPosition('crm');
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+function resetSequences(){
+  document.getElementById('mobileAd').style.opacity = 0;
+  document.getElementById('mobileAd').style.transform = 'translateY(10px)';
+  document.getElementById('whatsTap').classList.remove('tap');
+  ['chat2','chat3'].forEach(id=>{ const el=document.getElementById(id); el.style.opacity=0; el.style.transform='translateY(8px)'; });
+  ['tag-budget','tag-time','tag-intent'].forEach(id=>document.getElementById(id).classList.remove('show'));
+  const status = document.getElementById('chatStatus'); status.style.opacity=0; status.style.transform='translateY(6px)';
+  ['field-name','field-budget','field-time','field-intent','field-owner'].forEach(id=>document.getElementById(id).classList.remove('show'));
+  ['log1','log2','log3'].forEach(id=>document.getElementById(id).classList.remove('show'));
+  document.getElementById('crmStatus').textContent = 'New';
+}
+
+function playAds(){
+  const mobileAd = document.getElementById('mobileAd');
+  const publish = document.getElementById('publishBtn');
+  publish.classList.add('pulse');
+  setTimeout(()=>{ publish.classList.remove('pulse'); mobileAd.style.opacity=1; mobileAd.style.transform='translateY(0)'; }, 1000);
+  setTimeout(()=>{ document.getElementById('whatsTap').classList.add('tap'); activateStage('chat'); playChat(); }, 2200);
+}
+
+function playChat(){
+  setTimeout(()=>{ const c2=document.getElementById('chat2'); c2.style.opacity=1; c2.style.transform='translateY(0)'; }, 600);
+  setTimeout(()=>{ const c3=document.getElementById('chat3'); c3.style.opacity=1; c3.style.transform='translateY(0)'; }, 1400);
+  setTimeout(()=>{ ['tag-budget','tag-time','tag-intent'].forEach((id,i)=>setTimeout(()=>document.getElementById(id).classList.add('show'), i*200)); }, 1800);
+  setTimeout(()=>{ const st=document.getElementById('chatStatus'); st.style.opacity=1; st.style.transform='translateY(0)'; activateStage('crm'); playCRM(); }, 2600);
+}
+
+function playCRM(){
+  const order=['field-name','field-budget','field-time','field-intent','field-owner'];
+  order.forEach((id,i)=>setTimeout(()=>document.getElementById(id).classList.add('show'), i*320));
+  const logs=['log1','log2','log3'];
+  logs.forEach((id,i)=>setTimeout(()=>document.getElementById(id).classList.add('show'), 1800 + i*240));
+  setTimeout(()=>{ document.getElementById('crmStatus').textContent = 'Qualified'; }, 800);
+  setTimeout(()=>{ document.getElementById('crmStatus').textContent = 'Assigned'; }, 1800);
+  setTimeout(()=>{ cycleStages(); }, 3600);
+}
+
+function activateStage(key){
+  activeStage = key;
+  microCards.forEach(el=>{ el.classList.toggle('active', el.dataset.target === key); });
+  Object.keys(cards).forEach(k=>{ cards[k].card.classList.toggle('dimmed', k!==key); cards[k].card.style.zIndex = k===key ? 5 : 1; });
+}
+
+let autoIndex = 0;
+const stageOrder = ['ads','chat','crm'];
+function cycleStages(){
+  autoIndex = (autoIndex + 1) % stageOrder.length;
+  const next = stageOrder[autoIndex];
+  activateStage(next);
+  resetSequences();
+  if(next==='ads') playAds();
+  if(next==='chat') playChat();
+  if(next==='crm') playCRM();
+}
+
+microCards.forEach(el=>{
+  el.addEventListener('click', ()=>{
+    const tgt = el.dataset.target;
+    autoIndex = stageOrder.indexOf(tgt);
+    activateStage(tgt);
+    resetSequences();
+    if(tgt==='ads') playAds();
+    if(tgt==='chat') playChat();
+    if(tgt==='crm') playCRM();
+  });
+});
+
+// auto start after loader
+function startDemo(){
+  resetSequences();
+  activateStage('ads');
+  playAds();
+}
+
+// loader handling
+const loader = document.getElementById('loader');
+window.addEventListener('load', ()=>{
+  setTimeout(()=> loader.classList.add('hidden'), 2600);
+  setTimeout(startDemo, 2800);
+});
+
+// docking logo and reveal
+const dockedLogo = document.getElementById('dockedLogo');
+const hero = document.getElementById('hero');
+const chatPanel = document.getElementById('chatPanel');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    dockedLogo.classList.toggle('hidden', entry.isIntersecting);
+  });
+},{ threshold: 0.2 });
+observer.observe(hero);
+
+dockedLogo.addEventListener('click', ()=>{ chatPanel.classList.toggle('active'); });
+
+document.querySelectorAll('.reveal').forEach(el=>{
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) { e.target.classList.add('visible'); obs.disconnect(); } });
+  }, { threshold: 0.2 });
+  obs.observe(el);
+});
+
+</script>
+</body>
+</html>
