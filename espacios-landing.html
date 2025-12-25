@@ -716,7 +716,7 @@
     .footer { padding: 60px 0 40px; border-top: 1px solid rgba(15,15,16,.06); }
     .footer-inner { width: min(1200px, calc(100% - 40px)); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .footer-brand { display: flex; align-items: center; gap: 10px; }
-    .footer-brand img { width: 32px; height: 32px; }
+    .footer-brand svg { width: 32px; height: 32px; }
     .footer-brand span { font-size: 16px; font-weight: 700; }
     .footer-links { display: flex; gap: 32px; }
     .footer-links a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s; }
@@ -782,8 +782,27 @@
     </div>
 
     <span class="float-layer">
-      <!-- Logo with water fill animation - UPDATED LOGO -->
-      <img class="logo-fill" src="https://i.imghippo.com/files/il6818wpk.png" alt="espaciso" />
+      <!-- Inline logo to keep assets embedded -->
+      <svg class="logo-fill" viewBox="0 0 240 240" role="img" aria-label="espaciso logo">
+        <defs>
+          <linearGradient id="logoGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#cfff6b" />
+            <stop offset="100%" stop-color="#9de62e" />
+          </linearGradient>
+          <radialGradient id="logoHalo" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#f7ffe6" stop-opacity="0.95" />
+            <stop offset="100%" stop-color="#dff7b3" stop-opacity="0.4" />
+          </radialGradient>
+          <filter id="logoShadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="rgba(0,0,0,0.16)" />
+            <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="rgba(0,0,0,0.10)" />
+          </filter>
+        </defs>
+        <circle cx="120" cy="120" r="108" fill="url(#logoHalo)" filter="url(#logoShadow)" />
+        <path d="M84 94c0-22.5 18.3-40.8 40.8-40.8 22.5 0 40.8 18.3 40.8 40.8v11.4c0 4.9-4 8.9-8.9 8.9h-38.8c-8.8 0-15.9 7.1-15.9 15.9v4.2c0 8.8 7.1 15.9 15.9 15.9h30.1c4.9 0 8.9 4 8.9 8.9v3.4c0 4.9-4 8.9-8.9 8.9h-25.1C102.3 174.5 84 156.2 84 133.8z" fill="url(#logoGlow)" />
+        <path d="M146.8 109.3c4.9 0 8.9-4 8.9-8.9v-5.3c0-17.6-13.9-32-31.5-32-17.6 0-31.5 14.4-31.5 32 0 4.9 4 8.9 8.9 8.9z" fill="#0f0f10" opacity="0.18" />
+        <circle cx="148" cy="84" r="10" fill="#0f0f10" opacity="0.12" />
+      </svg>
     </span>
   </div>
 
@@ -1013,7 +1032,16 @@
     <footer class="footer">
       <div class="footer-inner">
         <div class="footer-brand">
-          <img src="https://i.imghippo.com/files/il6818wpk.png" alt="espaciso" />
+          <svg viewBox="0 0 240 240" width="32" height="32" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="footerGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#cfff6b" />
+                <stop offset="100%" stop-color="#9de62e" />
+              </linearGradient>
+            </defs>
+            <circle cx="120" cy="120" r="108" fill="#eef7d7" />
+            <path d="M84 94c0-22.5 18.3-40.8 40.8-40.8 22.5 0 40.8 18.3 40.8 40.8v11.4c0 4.9-4 8.9-8.9 8.9h-38.8c-8.8 0-15.9 7.1-15.9 15.9v4.2c0 8.8 7.1 15.9 15.9 15.9h30.1c4.9 0 8.9 4 8.9 8.9v3.4c0 4.9-4 8.9-8.9 8.9h-25.1C102.3 174.5 84 156.2 84 133.8z" fill="url(#footerGlow)" />
+          </svg>
           <span>espaciso</span>
         </div>
         <div class="footer-links">
