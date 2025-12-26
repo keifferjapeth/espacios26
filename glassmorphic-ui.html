@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espacios — Glassmorphic Design</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-start: #e8e8ec;
+      --bg-end: #f0f0f5;
+      --glass-bg: rgba(255, 255, 255, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.55);
+      --glass-shadow: 0 24px 64px rgba(30, 35, 50, 0.08);
+      --orb-color-1: #e5e4f0;
+      --orb-color-2: #d8dce8;
+      --orb-color-3: #dfe2ee;
+      --text-primary: #1e1e24;
+      --text-secondary: #6e7085;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle background texture */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.4), transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.3), transparent 50%);
+      pointer-events: none;
+    }
+
+    .container {
+      width: min(1200px, 90vw);
+      height: min(750px, 80vh);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      position: absolute;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--glass-shadow);
+      padding: 28px 32px;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 10;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 32px 80px rgba(30, 35, 50, 0.12);
+    }
+
+    /* Card positions */
+    .card-1 {
+      width: 280px;
+      height: 160px;
+      top: 15%;
+      left: 10%;
+    }
+
+    .card-2 {
+      width: 320px;
+      height: 140px;
+      top: 8%;
+      right: 15%;
+    }
+
+    .card-3 {
+      width: 260px;
+      height: 180px;
+      top: 45%;
+      left: 8%;
+    }
+
+    .card-4 {
+      width: 300px;
+      height: 150px;
+      bottom: 18%;
+      left: 28%;
+    }
+
+    .card-5 {
+      width: 340px;
+      height: 170px;
+      top: 38%;
+      right: 12%;
+    }
+
+    .card-6 {
+      width: 280px;
+      height: 160px;
+      bottom: 12%;
+      right: 18%;
+    }
+
+    /* Center larger card */
+    .card-center {
+      width: 420px;
+      height: 240px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 15;
+    }
+
+    .card-center:hover {
+      transform: translate(-50%, -50%) translateY(-4px);
+    }
+
+    /* 3D Orbs/Spheres */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: drop-shadow(0 20px 48px rgba(30, 35, 50, 0.12));
+      z-index: 5;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    /* Orb lighting effect */
+    .orb::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), transparent 50%),
+        radial-gradient(circle at 65% 70%, rgba(255, 255, 255, 0.3), transparent 60%);
+      opacity: 0.85;
+    }
+
+    .orb-1 {
+      width: 180px;
+      height: 180px;
+      top: 5%;
+      left: 20%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), var(--orb-color-1));
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 140px;
+      height: 140px;
+      top: 18%;
+      right: 8%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), var(--orb-color-2));
+      animation-delay: -2s;
+    }
+
+    .orb-3 {
+      width: 200px;
+      height: 200px;
+      bottom: 10%;
+      left: 15%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), var(--orb-color-3));
+      animation-delay: -4s;
+    }
+
+    .orb-4 {
+      width: 120px;
+      height: 120px;
+      bottom: 25%;
+      right: 10%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), var(--orb-color-1));
+      animation-delay: -6s;
+    }
+
+    .orb-5 {
+      width: 90px;
+      height: 90px;
+      top: 40%;
+      left: 5%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), var(--orb-color-2));
+      animation-delay: -3s;
+    }
+
+    .orb-6 {
+      width: 110px;
+      height: 110px;
+      top: 55%;
+      right: 25%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), var(--orb-color-3));
+      animation-delay: -5s;
+    }
+
+    .orb-7 {
+      width: 160px;
+      height: 160px;
+      bottom: 5%;
+      right: 35%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), var(--orb-color-1));
+      animation-delay: -1s;
+    }
+
+    /* Small accent orbs */
+    .orb-small {
+      width: 60px;
+      height: 60px;
+      top: 32%;
+      left: 42%;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), var(--orb-color-2));
+      animation-delay: -7s;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      25% {
+        transform: translate(12px, -10px) scale(1.02);
+      }
+      50% {
+        transform: translate(-8px, 8px) scale(0.98);
+      }
+      75% {
+        transform: translate(-10px, -6px) scale(1.01);
+      }
+    }
+
+    /* Card content styling */
+    .card-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-content {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .card-metric {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(30, 35, 50, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #a0a5b8, #c5c9d6);
+      border-radius: 999px;
+      animation: progress 3s ease-in-out infinite;
+    }
+
+    @keyframes progress {
+      0%, 100% { width: 65%; }
+      50% { width: 78%; }
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 999px;
+      font-size: 11px;
+      color: var(--text-primary);
+      font-weight: 500;
+      margin-top: 12px;
+    }
+
+    /* Center card special styling */
+    .card-center .card-header {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card-center .card-content {
+      font-size: 14px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .glass-card {
+        padding: 20px 24px;
+      }
+
+      .card-1, .card-2, .card-3, .card-4, .card-5, .card-6 {
+        width: 240px;
+        height: 140px;
+      }
+
+      .card-center {
+        width: 360px;
+        height: 200px;
+      }
+
+      .orb {
+        transform: scale(0.8);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: 95vw;
+        height: 90vh;
+      }
+
+      .glass-card {
+        display: none;
+      }
+
+      .card-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 85vw;
+        height: auto;
+        min-height: 280px;
+      }
+
+      .orb {
+        transform: scale(0.6);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Floating Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="orb orb-5"></div>
+    <div class="orb orb-6"></div>
+    <div class="orb orb-7"></div>
+    <div class="orb orb-small"></div>
+
+    <!-- Glass Cards -->
+    <div class="glass-card card-1">
+      <div class="card-metric">42</div>
+      <div class="card-label">Active Users</div>
+    </div>
+
+    <div class="glass-card card-2">
+      <div class="card-header">Performance</div>
+      <div class="card-content">System operating at optimal capacity</div>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="glass-card card-3">
+      <div class="card-header">Analytics</div>
+      <div class="card-content">Real-time insights and metrics tracking</div>
+      <div class="pill">Live</div>
+    </div>
+
+    <div class="glass-card card-4">
+      <div class="card-header">Automation</div>
+      <div class="card-content">Workflows running seamlessly across channels</div>
+    </div>
+
+    <div class="glass-card card-5">
+      <div class="card-header">Integration Status</div>
+      <div class="card-content">All systems synchronized and operational</div>
+      <div class="pill">Connected</div>
+    </div>
+
+    <div class="glass-card card-6">
+      <div class="card-metric">98%</div>
+      <div class="card-label">Uptime</div>
+    </div>
+
+    <!-- Center Card -->
+    <div class="glass-card card-center">
+      <div class="logo-text">Espacios</div>
+      <div class="card-header">Glassmorphic Design System</div>
+      <div class="card-content">
+        A modern, minimal interface with floating glass panels and 3D orb elements.
+        Clean aesthetics meet functional design in this orchestrated layout.
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
