@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lead Gen Teams — Espacios</title>
+  <meta name="description" content="Espacios for lead gen teams: capture, assign, and follow up automatically." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="motion.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="is-loading">
+  <div class="bg-grid"></div>
+  <div class="ambient" data-ambient aria-hidden="true"></div>
+
+  <div class="intro" data-intro aria-label="Loading" role="status">
+    <div class="intro-inner">
+      <div class="intro-meta">Loading Espacios...</div>
+      <div class="progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <header class="header" data-header role="navigation" aria-label="Primary">
+    <a class="logo" href="/">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="Espacios" />
+      <b>espacios</b>
+    </a>
+    <nav class="nav">
+      <a href="/pricing.html">Pricing</a>
+      <a href="/demo.html">Demo</a>
+    </nav>
+    <div class="actions">
+      <a class="btn btn-accent" href="https://dashboard.espacios.me/signup">Start free</a>
+    </div>
+  </header>
+
+  <main class="shell page" data-page>
+    <section class="card lift" data-reveal>
+      <div class="kicker">
+        <span class="pill">Use case</span>
+        <span class="pill">Lead-gen teams</span>
+      </div>
+      <h1>Never miss inbound demand.</h1>
+      <p class="lede">Capture, qualify, and assign leads instantly while keeping follow-ups consistent.</p>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="grid3">
+        <div class="glass lift">
+          <h3>Instant capture</h3>
+          <p>Connect ads, landing pages, and forms to one inbox.</p>
+        </div>
+        <div class="glass lift">
+          <h3>Owner assignment</h3>
+          <p>Route to the right rep based on rules and availability.</p>
+        </div>
+        <div class="glass lift">
+          <h3>Follow-up loops</h3>
+          <p>Automate reminders to keep leads warm.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="grid2">
+        <div class="card lift">
+          <h2>Qualification in one pass</h2>
+          <p class="lede" style="font-size:14px;">Collect budget, timeline, and intent in the first minute.</p>
+        </div>
+        <div class="card lift">
+          <h2>Ops clarity</h2>
+          <p class="lede" style="font-size:14px;">See response time, coverage, and conversion performance.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" data-reveal>
+      <div>© espacios — hello@espacios.me</div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="/features.html">Features</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/demo.html">Demo</a>
+        <a href="/docs.html">Docs</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/security.html">Security</a>
+        <a href="/status.html">Status</a>
+      </div>
+    </footer>
+  </main>
+
+  <div class="chat-scrim" data-chat-scrim hidden></div>
+  <aside class="chat" data-chat-panel id="chat-panel" role="dialog" aria-modal="true" aria-label="Quick links" hidden>
+    <div class="chat-top">
+      <div class="chat-title">
+        <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+        <b>Quick links</b>
+      </div>
+      <button class="chat-close" type="button" aria-label="Close" data-chat-close>×</button>
+    </div>
+    <div class="chat-links">
+      <a class="chat-link" href="/pricing.html"><span>Pricing</span><i>→</i></a>
+      <a class="chat-link" href="/demo.html"><span>Demo</span><i>→</i></a>
+      <a class="chat-link" href="/docs.html"><span>Docs</span><i>→</i></a>
+      <a class="chat-link" href="/contact.html"><span>Contact</span><i>→</i></a>
+      <a class="chat-link accent" href="https://dashboard.espacios.me/signup"><span>Start free</span><i>→</i></a>
+    </div>
+  </aside>
+
+  <button class="orb-fly" data-orb aria-label="Open chat" aria-expanded="false" aria-controls="chat-panel">
+    <span class="orb-fly__inner">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+    </span>
+  </button>
+
+  <script src="motion.js" defer></script>
+</body>
+</html>

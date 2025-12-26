@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy — Espacios</title>
+  <meta name="description" content="Privacy policy for Espacios." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="motion.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="is-loading">
+  <div class="bg-grid"></div>
+  <div class="ambient" data-ambient aria-hidden="true"></div>
+
+  <div class="intro" data-intro aria-label="Loading" role="status">
+    <div class="intro-inner">
+      <div class="intro-meta">Loading Espacios...</div>
+      <div class="progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <main class="shell page" data-page>
+    <section class="card lift" data-reveal>
+      <div class="kicker">
+        <span class="pill">Privacy</span>
+        <span class="pill">Policy</span>
+      </div>
+      <h1>Privacy policy</h1>
+      <p class="lede">We respect your data and keep handling practices transparent.</p>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="card lift">
+        <h2>What we collect</h2>
+        <p class="lede" style="font-size:14px;">Account information, usage data, and operational metadata required to deliver the service.</p>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="card lift">
+        <h2>How we use data</h2>
+        <p class="lede" style="font-size:14px;">To provide the platform, maintain security, and improve product performance.</p>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="card lift">
+        <h2>Contact</h2>
+        <p class="lede" style="font-size:14px;">Questions? Email hello@espacios.me.</p>
+      </div>
+    </section>
+
+    <footer class="footer" data-reveal>
+      <div>© espacios — hello@espacios.me</div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="/features.html">Features</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/demo.html">Demo</a>
+        <a href="/docs.html">Docs</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/security.html">Security</a>
+        <a href="/status.html">Status</a>
+      </div>
+    </footer>
+  </main>
+
+  <div class="chat-scrim" data-chat-scrim hidden></div>
+  <aside class="chat" data-chat-panel id="chat-panel" role="dialog" aria-modal="true" aria-label="Quick links" hidden>
+    <div class="chat-top">
+      <div class="chat-title">
+        <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+        <b>Quick links</b>
+      </div>
+      <button class="chat-close" type="button" aria-label="Close" data-chat-close>×</button>
+    </div>
+    <div class="chat-links">
+      <a class="chat-link" href="/pricing.html"><span>Pricing</span><i>→</i></a>
+      <a class="chat-link" href="/demo.html"><span>Demo</span><i>→</i></a>
+      <a class="chat-link" href="/docs.html"><span>Docs</span><i>→</i></a>
+      <a class="chat-link" href="/contact.html"><span>Contact</span><i>→</i></a>
+      <a class="chat-link accent" href="https://dashboard.espacios.me/signup"><span>Start free</span><i>→</i></a>
+    </div>
+  </aside>
+
+  <button class="orb-fly" data-orb aria-label="Open chat" aria-expanded="false" aria-controls="chat-panel">
+    <span class="orb-fly__inner">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+    </span>
+  </button>
+
+  <script src="motion.js" defer></script>
+</body>
+</html>

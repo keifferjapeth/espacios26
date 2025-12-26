@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Espacios</title>
+  <meta name="description" content="Contact Espacios for demos, support, and onboarding." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="motion.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="is-loading">
+  <div class="bg-grid"></div>
+  <div class="ambient" data-ambient aria-hidden="true"></div>
+
+  <div class="intro" data-intro aria-label="Loading" role="status">
+    <div class="intro-inner">
+      <div class="intro-meta">Loading Espacios...</div>
+      <div class="progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <header class="header" data-header role="navigation" aria-label="Primary">
+    <a class="logo" href="/">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="Espacios" />
+      <b>espacios</b>
+    </a>
+    <nav class="nav">
+      <a href="/features.html">Features</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/demo.html">Demo</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/contact.html" aria-current="page">Contact</a>
+    </nav>
+    <div class="actions">
+      <a class="btn" href="https://dashboard.espacios.me/">Login</a>
+      <a class="btn btn-accent" href="https://dashboard.espacios.me/signup">Start free</a>
+    </div>
+  </header>
+
+  <main class="shell page" data-page>
+    <section class="card lift" data-reveal>
+      <div class="kicker">
+        <span class="pill">Contact</span>
+        <span class="pill">We reply fast</span>
+      </div>
+      <h1>Tell us about your team and workflow.</h1>
+      <p class="lede">We can map your lead flow, routing logic, and automation needs.</p>
+      <div class="cta-row">
+        <a class="btn btn-accent" href="mailto:hello@espacios.me">Email hello@espacios.me</a>
+        <a class="btn" href="https://dashboard.espacios.me/signup">Start free</a>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="grid2">
+        <div class="card lift">
+          <h2>General inquiries</h2>
+          <p class="lede" style="font-size:14px;">hello@espacios.me</p>
+          <p class="lede" style="font-size:14px; margin-top:8px;">Dubai, UAE</p>
+        </div>
+        <div class="card lift">
+          <h2>Request a demo</h2>
+          <form class="form">
+            <div class="field">
+              <label for="name">Name</label>
+              <input class="input" id="name" name="name" type="text" placeholder="Your name" />
+            </div>
+            <div class="field">
+              <label for="company">Company</label>
+              <input class="input" id="company" name="company" type="text" placeholder="Company name" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input class="input" id="email" name="email" type="email" placeholder="you@company.com" />
+            </div>
+            <div class="field">
+              <label for="message">What do you need help with?</label>
+              <textarea class="input" id="message" name="message" placeholder="Routing rules, channel setup, automation..." ></textarea>
+            </div>
+            <button class="btn btn-accent" type="button">Send request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" data-reveal>
+      <div>© espacios — hello@espacios.me</div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="/features.html">Features</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/demo.html">Demo</a>
+        <a href="/docs.html">Docs</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/security.html">Security</a>
+        <a href="/status.html">Status</a>
+      </div>
+    </footer>
+  </main>
+
+  <div class="chat-scrim" data-chat-scrim hidden></div>
+  <aside class="chat" data-chat-panel id="chat-panel" role="dialog" aria-modal="true" aria-label="Quick links" hidden>
+    <div class="chat-top">
+      <div class="chat-title">
+        <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+        <b>Quick links</b>
+      </div>
+      <button class="chat-close" type="button" aria-label="Close" data-chat-close>×</button>
+    </div>
+    <div class="chat-links">
+      <a class="chat-link" href="/pricing.html"><span>Pricing</span><i>→</i></a>
+      <a class="chat-link" href="/demo.html"><span>Demo</span><i>→</i></a>
+      <a class="chat-link" href="/docs.html"><span>Docs</span><i>→</i></a>
+      <a class="chat-link" href="/contact.html"><span>Contact</span><i>→</i></a>
+      <a class="chat-link accent" href="https://dashboard.espacios.me/signup"><span>Start free</span><i>→</i></a>
+    </div>
+  </aside>
+
+  <button class="orb-fly" data-orb aria-label="Open chat" aria-expanded="false" aria-controls="chat-panel">
+    <span class="orb-fly__inner">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+    </span>
+  </button>
+
+  <script src="motion.js" defer></script>
+</body>
+</html>

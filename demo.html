@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo — Espacios</title>
+  <meta name="description" content="See Espacios handle inbound leads with AI-first responses, routing, and follow-ups." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="motion.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="is-loading">
+  <div class="bg-grid"></div>
+  <div class="ambient" data-ambient aria-hidden="true"></div>
+
+  <div class="intro" data-intro aria-label="Loading" role="status">
+    <div class="intro-inner">
+      <div class="intro-meta">Loading Espacios...</div>
+      <div class="progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+
+  <header class="header" data-header role="navigation" aria-label="Primary">
+    <a class="logo" href="/">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="Espacios" />
+      <b>espacios</b>
+    </a>
+    <nav class="nav">
+      <a href="/features.html">Features</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/demo.html" aria-current="page">Demo</a>
+      <a href="/docs.html">Docs</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+    <div class="actions">
+      <a class="btn" href="https://dashboard.espacios.me/">Login</a>
+      <a class="btn btn-accent" href="https://dashboard.espacios.me/signup">Start free</a>
+    </div>
+  </header>
+
+  <main class="shell page" data-page>
+    <section class="card lift" data-reveal>
+      <div class="kicker">
+        <span class="pill">Demo</span>
+        <span class="pill">Live conversation flow</span>
+      </div>
+      <h1>Watch Espacios qualify and route a lead.</h1>
+      <p class="lede">This simulation shows how AI handles first touch, qualification, and handoff.</p>
+      <div class="cta-row">
+        <a class="btn btn-accent" href="https://dashboard.espacios.me/signup">Start free</a>
+        <a class="btn" href="/pricing.html">View pricing</a>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="chat-sim" data-demo-seq>
+        <div class="msg" style="--d: 0ms;">Hi! I'm looking for a 2BR in Dubai Hills under 2M AED.<small>Lead • WhatsApp</small></div>
+        <div class="msg me" style="--d: 240ms;">Thanks for reaching out! Are you buying for end-use or investment?<small>AI qualification</small></div>
+        <div class="msg" style="--d: 480ms;">End-use, ideally ready to move in within 60 days.<small>Lead</small></div>
+        <div class="msg me" style="--d: 720ms;">Got it. Any preferred towers or amenities?<small>AI</small></div>
+        <div class="msg" style="--d: 960ms;">Park views and a gym. Flexible on tower.<small>Lead</small></div>
+        <div class="msg me" style="--d: 1200ms;">Perfect. Assigning to Omar (Dubai Hills specialist). You'll hear back shortly.<small>Routing</small></div>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="grid3">
+        <div class="glass lift">
+          <h3>First response in seconds</h3>
+          <p>AI handles immediate reply with verified qualification prompts.</p>
+        </div>
+        <div class="glass lift">
+          <h3>Clean handoff</h3>
+          <p>Routing rules assign the right agent with full context.</p>
+        </div>
+        <div class="glass lift">
+          <h3>Follow-up coverage</h3>
+          <p>Drip sequences keep leads warm until they convert.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="card lift" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px;">
+        <div>
+          <h2>Want a tailored walkthrough?</h2>
+          <p class="lede" style="font-size:14px;">We can model your routing, qualification, and workflows.</p>
+        </div>
+        <div class="cta-row" style="margin-top:0;">
+          <a class="btn btn-accent" href="/contact.html">Book a demo</a>
+          <a class="btn" href="https://dashboard.espacios.me/signup">Start free</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" data-reveal>
+      <div>© espacios — hello@espacios.me</div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="/features.html">Features</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/demo.html">Demo</a>
+        <a href="/docs.html">Docs</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/security.html">Security</a>
+        <a href="/status.html">Status</a>
+      </div>
+    </footer>
+  </main>
+
+  <div class="chat-scrim" data-chat-scrim hidden></div>
+  <aside class="chat" data-chat-panel id="chat-panel" role="dialog" aria-modal="true" aria-label="Quick links" hidden>
+    <div class="chat-top">
+      <div class="chat-title">
+        <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+        <b>Quick links</b>
+      </div>
+      <button class="chat-close" type="button" aria-label="Close" data-chat-close>×</button>
+    </div>
+    <div class="chat-links">
+      <a class="chat-link" href="/pricing.html"><span>Pricing</span><i>→</i></a>
+      <a class="chat-link" href="/demo.html"><span>Demo</span><i>→</i></a>
+      <a class="chat-link" href="/docs.html"><span>Docs</span><i>→</i></a>
+      <a class="chat-link" href="/contact.html"><span>Contact</span><i>→</i></a>
+      <a class="chat-link accent" href="https://dashboard.espacios.me/signup"><span>Start free</span><i>→</i></a>
+    </div>
+  </aside>
+
+  <button class="orb-fly" data-orb aria-label="Open chat" aria-expanded="false" aria-controls="chat-panel">
+    <span class="orb-fly__inner">
+      <img src="https://i.imghippo.com/files/il6818wpk.png" alt="" />
+    </span>
+  </button>
+
+  <script src="motion.js" defer></script>
+</body>
+</html>
